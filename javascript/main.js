@@ -6,93 +6,89 @@ class player {
 
 var gameObj = {
   //state
+  gameGridDOM: document.getElementById("game-grid"),
+  gameTimerDOM: document.getElementById("timer"),
   gameDifficultySettings: {
     Easy: {
-      gridx: 10,
-      gridy: 8,
+      gridX: 10,
+      gridY: 8,
       mines: 10,
     },
     Normal: {
-      gridx: 18,
-      gridy: 14,
+      gridX: 18,
+      gridY: 14,
       mines: 40,
     },
     Hard: {
-      gridx: 24,
-      gridy: 20,
+      gridX: 24,
+      gridY: 20,
       mines: 99,
     },
   },
   gameDifficultySettings: "Normal",
-  gridx: 18,
-  gridy: 14,
-  mines: 40,
-  gameGrid: document.getElementById("game-grid"),
-  mineAndNumberLocations: {},
+  gridX: 18,
+  gridY: 14,
+  numOfMines: 40,
+  remainingSquares: null,
+  timeElapsed: 0,
+  gameGridValues: [],
+  gameGridReveal: [],
 
   //Initialize
   initialize: function () {
-    this.mineGenerator();
-    this.numberGenerator();
-    this.RenderGameGrid();
+    this.renderGameGrid();
+    this.calculateRemainingSquares();
+    this.mineNumberGenerator();
   },
 
   //Update State Methods
-  mineGenerator: function () {
-    for (let mine = 0; mine < this.mines; mine++) {
-      let coordinates =
-        Math.floor(Math.random() * this.gridx) +
-        "," +
-        Math.floor(Math.random() * this.gridy);
-      while (this.mineAndNumberLocations[coordinates]) {
-        coordinates =
-          Math.floor(Math.random() * this.gridx) +
-          "," +
-          Math.floor(Math.random() * this.gridy);
+  mineNumberGenerator: function () {
+    for (let minesAdded = 0; minesAdded <= this.numOfMines; minesAdded++) {
+      randX = Math.floor(Math.random() * this.gridX);
+      randY = Math.floor(Math.random() * this.gridY);
+      while (this.gameGridValues[randY][randX] == -1) {
+        randX = Math.floor(Math.random() * this.gridX);
+        randY = Math.floor(Math.random() * this.gridY);
       }
-      this.mineAndNumberLocations[coordinates] = 0;
-    }
-  },
-  numberGenerator: function () {
-    let mineLocations = Object.keys(this.mineAndNumberLocations);
-    mineLocations.forEach(function (coordinates) {
-      coordinates = coordinates.split(",");
-      let x = parseInt(coordinates[0]);
-      let y = parseInt(coordinates[1]);
-      for (let xin = -1; xin <= 1; xin++) {
-        let newx = x - xin;
-        if (newx >= 0 && newx < gameObj.gridx) {
-          for (yin = -1; yin <= 1; yin++) {
-            let newy = y - yin;
-            if (newy >= 0 && newy < gameObj.gridy) {
-              let newcoordinates = newx + "," + newy;
-              if (gameObj.mineAndNumberLocations[newcoordinates] !== 0) {
-                if (gameObj.mineAndNumberLocations[newcoordinates]) {
-                  gameObj.mineAndNumberLocations[newcoordinates]++;
-                } else {
-                  gameObj.mineAndNumberLocations[newcoordinates] = 1;
-                }
+      gameObj.gameGridValues[randY][randX] = -1;
+      for (let dx = -1; dx <= 1; dx++) {
+        if (randX + dx >= 0 && randX + dx < this.gridX) {
+          for (let dy = -1; dy <= 1; dy++) {
+            if (randY + dy >= 0 && randY + dy < this.gridY) {
+              if (this.gameGridValues[randY + dy][randX + dx] != -1) {
+                this.gameGridValues[randY + dy][randX + dx]++;
               }
             }
           }
         }
       }
-    });
+      gameObj.gameGridReveal[randY][randX] = 1;
+    }
   },
+
+  calculateRemainingSquares: function () {
+    this.remainingSquares = this.gridX * this.gridY - this.numOfMines;
+  },
+
   // Render Methods
-  RenderGameGrid: function () {
-    for (y = 0; y < this.gridy; y++) {
-      for (x = 0; x < this.gridx; x++) {
+  renderGameGrid: function () {
+    for (y = 0; y < this.gridY; y++) {
+      let valueRow = [];
+      let revealRow = [];
+      for (x = 0; x < this.gridX; x++) {
+        valueRow.push(0);
+        revealRow.push(0);
         let square = document.createElement("div");
         square.classList.add("square");
         square.id = y + "," + x;
-        if (!isNaN(this.mineAndNumberLocations[x + "," + y])) {
-          square.innerText = this.mineAndNumberLocations[x + "," + y];
-        }
-        this.gameGrid.appendChild(square);
+        this.gameGridDOM.appendChild(square);
       }
+      this.gameGridValues.push(valueRow);
+      this.gameGridReveal.push(revealRow);
     }
   },
+
+  // Event Handlers
 };
 
 gameObj.initialize();

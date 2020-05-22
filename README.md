@@ -104,6 +104,7 @@ Considering the scope of the project, the design of the game will take a compute
 
 - Declare GameObj Object. This will have:
   - Game Grid - DOM Node 
+  - Timer - DOM Node
   - Game Difficulty Selected - String - Easy, Normal and Hard
   - Game Difficulty Settings - Obj - Grid size and number of mines
   - Grid X Value - Number
