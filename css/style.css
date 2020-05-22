@@ -56,6 +56,14 @@ header{
   border:1px solid black;
 }
 
+.closed{
+  background: darkgray;
+}
+
+.open{
+  background:rgb(235, 235, 235);
+}
+
 .square:hover{
   cursor:pointer;
   background:lightgreen;

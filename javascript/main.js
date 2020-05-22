@@ -80,6 +80,7 @@ var gameObj = {
         revealRow.push(0);
         let square = document.createElement("div");
         square.classList.add("square");
+        square.classList.add("closed");
         square.id = y + "," + x;
         this.gameGridDOM.appendChild(square);
       }
