@@ -94,8 +94,6 @@ Players will be interacting mainly with the grid that is centered in the middle 
 
 Win/loss messages are not included in this mockup but will appear in the middle of the screen.
 
-Additional features discussed in section 3 have also been included, however the first iteration of the game will take this into account and will not consider the additional features.
-
 Considering the scope of the project, the design of the game will take a computer screen first approach considering the game is intended first.
 
 ## 5. Psuedocode
