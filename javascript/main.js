@@ -23,6 +23,7 @@ var gameObj = {
       mines: 99,
     },
   },
+  gameDifficultySettings: "Normal",
   gridx: 18,
   gridy: 14,
   mines: 40,

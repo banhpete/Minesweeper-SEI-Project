@@ -78,11 +78,17 @@ The browser based game as close as possible to the description above, and simili
 - An AI to play against the player
 
 ## 4. Wireframe
-The browser based game will be expected to have the following layouts.
+Mockups for the browser based game for one player and two players are shown below. 
 
-![Web 1920 View](Wireframes/Web1920.jpg)
-![Web 1280 View](Wireframes/Web1280.jpg)
-![Web iPhoneX View](Wireframes/iPhoneX-XS-11Pro.jpg)
+### Player 1
+![Web 1920 Player 1 Mockup](Wireframes/Web1920P1.jpg)
+![Web 1280 Player 1 Mockup](Wireframes/Web1280P1.jpg)
+![Mobile iPhone 11 Player 1 Mockup](Wireframes/iPhoneX-XS-11ProP1.jpg)
+
+### Player 2
+![Web 1920 Player 1 Mockup](Wireframes/Web1920P2.jpg)
+![Web 1280 Player 1 Mockup](Wireframes/Web1280P2.jpg)
+![Mobile iPhone 11 Player 1 Mockup](Wireframes/iPhoneX-XS-11ProP2.jpg)
 
 Players will be interacting mainly with the grid that is centered in the middle of the screen. There will also be a menu for the player to interact with in the top right to change difficulty.
 
@@ -96,28 +102,46 @@ Considering the scope of the project, the design of the game will take a compute
 
 ### Initialize State & Class
 - Declare Play Class. This will have
-  - Total mines found
   - Flag colour
 
 - Declare GameObj Object. This will have:
+  - Game Grid - DOM Node 
   - Game Difficulty Selected - String - Easy, Normal and Hard
   - Game Difficulty Settings - Obj - Grid size and number of mines
-  - Mine & Numbers Location - Obj - X & Y Coordinates of mines and numbers.
-  - Empty Cell Location
+  - Grid X Value - Number
+  - Grid Y Value - Number
+  - Number of Mines - Number
+  - Game Grid Values - 2D Array -  State of every cell, whether it's a mine, or empty or a number.
+  - Game Grid Reveal Status - 2D Array - Array of 0 or 1 values indicating reveal status
+  - Remaining Squares left to unreveal - Number.
   - Time Spent - Number - Starts with 0.
 
-- Mine/Number Generator Function - Takes in settings and then randomizes coordinates of mines and inputs it into mine/number object.
+### Update State Functions
+- Mine/Number Generator Function - Takes in settings and then randomizes coordinates of mines and inputs it into Game Grid Values.
+- Update Reveal Status Function - Takes in coordiantes and updates that coordiante in the Game Grid Reveal Status. Then runs the re-render number square and ubtract one from the remaing squares to reveal state and check if it equal to 0, if it is run the render win/loss function.
+- Flood fill Function - Takes in one coordinate of empty cell, checks all neighbouring cells. When it finds a neighbouring cell:
+  - If it is a empty cell and not revealed, reveal it, and then send that coordinate to the flood fill function.
+  - If it is a empty cell but revealed, leave it.
+  - If it is a number cell but not revealed, reveal it.
+  - If it is a number cell but reveaeld, leave it.
+- Update Time Function - Add 1 second to the current time 
+- Reset Function - Delete the current game grid, and add another one, and then re run initialization. For adding the event handlers. Previous event handlers can be added over top the other one with onclick. We only need one function.
+
+### Initialization Function
+- Runs the render squares function
+- Runs the Mine/Number Generator 
+- Runs the render function
+- Adds Event Handler to Grid DOM for buttons click.
 
 ### Render Functions
 - Render squares in the rectangular grid.
   - Use a for loop
   - Each square requires an id with x,y coodinates
+  - At the same time creates the two grids for reveal status and grid values
+  - Lastly sets the number of squares left to reveal. This should be equal to gridx*gridy - number of mines.
 
-- Re-render number square
+- Re-render square
   - Takes in a number and id, find DOM element with corresponding id, and change class and update text to show the number.
-
-- Render empty square
- - Takes in an id, finds all the empty squares surrounding it, and change all the class.
 
 - Render Timer
   - Constantly re-rendered to show time
@@ -127,12 +151,20 @@ Considering the scope of the project, the design of the game will take a compute
 
 - Render Win/Loss
   - Render window to show Win/Lose
+  - Checks the remaining squares to determine if win/loss.
   - Depending on the status, show all mines as red, or show all mines as green.
   - Window will have button to reset
 
 ### Event Handler
-- Attach event listener to div holding all squares. This will be a delegated event listener. The listener will take the id of the square that was clicked and check if these coordinates are in the Mine and Numbers Location. If it is mine run Win/Loss. If it is number, re-render square. If it empty run function to uncover all empty cells surrounding it until it hits a number.
+- Attach event listener to div holding all squares. This will be a delegated event listener. The listener will take the id of the square that was clicked and check if these coordinates are in the Mine and Numbers Location.
+  - If time in the gameObj is 0, then start the timer interval.
+  - If it is mine run the win/loss function. 
+  - If it is number, re-render square. 
+  - If it empty run the flood fill to find all neighbouring empty cells. All these functions shall update the reveal grid.
 - Attach event listener to a reset button. Render all squares again. and run mine/number generator for a new mine/number layout. Also reset the time.
+
+### Function Interval
+- Run Update Time Function every second and then run render timer function.
 
 ## 6. Technologies Used
 To be added.
