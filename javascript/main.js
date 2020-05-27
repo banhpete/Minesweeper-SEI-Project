@@ -39,6 +39,7 @@ var gameObj = {
     this.renderGameGrid();
     this.calculateRemainingSquares();
     this.mineNumberGenerator();
+    this.gameGridDOM.onclick = this.squareClick;
   },
 
   //Update State Methods
@@ -88,8 +89,14 @@ var gameObj = {
       this.gameGridReveal.push(revealRow);
     }
   },
-
   // Event Handlers
+  squareClick: function (event) {
+    console.log(event);
+    let square = event.target;
+    if (square.localName !== "div") return;
+    let squareX = square.id.split(",")[1];
+    let squareY = square.id.split(",")[0];
+  },
 };
 
 gameObj.initialize();
