@@ -52,6 +52,7 @@ var gameGridValues = [];
 var gameGridReveal = [];
 var gameStatus = 0;
 var soundSetting = 0;
+var explosionSet = 0;
 
 class player {
   constructor() {
@@ -154,6 +155,7 @@ function rerenderSquare(square, squareX, squareY) {
 }
 
 function renderWinLoss() {
+  explosionSet = 1;
   let popup = document.createElement("div");
   popup.setAttribute("id", "popup");
   if (themeAudio.muted || themeAudio.paused) {
@@ -187,6 +189,12 @@ function renderWinLoss() {
       popup.innerHTML = "<p>YOU LOSE</p>";
       popup.appendChild(mario);
       gameGridDOM.appendChild(popup);
+      explosionSet = 0;
+      setTimeout(function () {
+        let resetMsg = document.createElement("p");
+        resetMsg.innerHTML = "Press Reset";
+        popup.appendChild(resetMsg);
+      }, 3000);
     }, 2300);
   } else {
     setTimeout(function () {
@@ -196,6 +204,12 @@ function renderWinLoss() {
       popup.innerHTML = "<p>YOU WIN</p>";
       popup.appendChild(mario);
       gameGridDOM.appendChild(popup);
+      explosionSet = 0;
+      setTimeout(function () {
+        let resetMsg = document.createElement("p");
+        resetMsg.innerHTML = "Press Reset";
+        popup.appendChild(resetMsg);
+      }, 3000);
     }, 2300);
   }
   gameStatus = 1;
@@ -241,25 +255,27 @@ function squareClick(event) {
 }
 
 function reset() {
-  gameGridValues = [];
-  gameGridReveal = [];
-  timeElap = null;
-  gameTimerDOM.innerText = 0;
-  gameGridDOM.remove();
-  gameGridDOM = document.createElement("div");
-  gameGridDOM.setAttribute("id", "game-grid");
-  document.querySelector("body").appendChild(gameGridDOM);
-  gameGridDOM = document.getElementById("game-grid");
-  gameStatus = 0;
-  clearInterval(timer);
-  gameOverAudio.pause();
-  gameOverAudio.currentTime = 0;
-  stageClearAudio.pause();
-  stageClearAudio.currentTime = 0;
-  if (!themeAudio.muted && !soundSetting) {
-    themeAudio.play();
+  if (!explosionSet) {
+    gameGridValues = [];
+    gameGridReveal = [];
+    timeElap = null;
+    gameTimerDOM.innerText = 0;
+    gameGridDOM.remove();
+    gameGridDOM = document.createElement("div");
+    gameGridDOM.setAttribute("id", "game-grid");
+    document.querySelector("body").appendChild(gameGridDOM);
+    gameGridDOM = document.getElementById("game-grid");
+    gameStatus = 0;
+    clearInterval(timer);
+    gameOverAudio.pause();
+    gameOverAudio.currentTime = 0;
+    stageClearAudio.pause();
+    stageClearAudio.currentTime = 0;
+    if (!themeAudio.muted && !soundSetting) {
+      themeAudio.play();
+    }
+    initialize();
   }
-  initialize();
 }
 
 function selectDiff(event) {
