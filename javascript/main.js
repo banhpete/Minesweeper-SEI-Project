@@ -262,7 +262,6 @@ function initialize() {
   mineNumGen();
   gameGridDOM.onclick = squareClick;
   gameResetDOM.onclick = reset;
-  themeAudio.onclick = updateSound;
 }
 
 initialize();
