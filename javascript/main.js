@@ -47,6 +47,7 @@ var timer;
 var gameGridValues = [];
 var gameGridReveal = [];
 var gameStatus = 0;
+var soundSetting = 0;
 
 class player {
   constructor() {
@@ -149,6 +150,11 @@ function rerenderSquare(square, squareX, squareY) {
 function renderWinLoss() {
   let popup = document.createElement("div");
   popup.setAttribute("id", "popup");
+  if (themeAudio.muted || themeAudio.paused) {
+    soundSetting = 1;
+  } else {
+    soundSetting = 0;
+  }
   clearInterval(timer);
   let square;
   let mineCount = 0;
@@ -177,7 +183,10 @@ function renderWinLoss() {
     setTimeout(function () {
       themeAudio.pause();
       stageClearAudio.play();
+      let mario = document.createElement("div");
+      mario.setAttribute("id", "mario");
       popup.innerHTML = "<p>YOU WIN</p>";
+      popup.appendChild(mario);
       gameGridDOM.appendChild(popup);
     }, 2300);
   }
@@ -223,7 +232,6 @@ function squareClick(event) {
   }
 }
 
-//Reset Function
 function reset() {
   gameGridValues = [];
   gameGridReveal = [];
@@ -236,6 +244,13 @@ function reset() {
   gameGridDOM = document.getElementById("game-grid");
   gameStatus = 0;
   clearInterval(timer);
+  gameOverAudio.pause();
+  gameOverAudio.currentTime = 0;
+  stageClearAudio.pause();
+  stageClearAudio.currentTime = 0;
+  if (!themeAudio.muted && !soundSetting) {
+    themeAudio.play();
+  }
   initialize();
 }
 
@@ -247,6 +262,7 @@ function initialize() {
   mineNumGen();
   gameGridDOM.onclick = squareClick;
   gameResetDOM.onclick = reset;
+  themeAudio.onclick = updateSound;
 }
 
 initialize();

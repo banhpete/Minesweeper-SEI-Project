@@ -121,6 +121,42 @@ audio{
   display:flex;
   justify-content:center;
   align-items:center;
+  overflow:hidden;
 }
 
+#mario{
+  position:absolute;
+  top:60%;
+  left:-100px;
+  width:100px;
+  height:100px;
+  background:url("../Images/small-mario.jpg");
+  background-repeat:no-repeat;
+  background-position:center;
+  animation-name: running, movement;
+  animation-duration: .3s, 2.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite, infinite;
+  animation-fill-mode: forwards;
+}
 
+@keyframes running{
+  0% {background:url("../Images/small-mario-running1.jpg");
+  background-repeat:no-repeat;
+  background-position:center;}
+  50% {background:url("../Images/small-mario-running2.jpg");
+  background-repeat:no-repeat;
+  background-position:center;}
+  100% {background:url("../Images/small-mario-running1.jpg");
+  background-repeat:no-repeat;
+  background-position:center;}
+}
+
+@keyframes movement{
+  0%{
+    left:-100px
+  }
+  100%{
+    left:calc(100% - 4px)
+  }
+}
