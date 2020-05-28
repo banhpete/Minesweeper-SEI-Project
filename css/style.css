@@ -124,9 +124,14 @@ audio{
   overflow:hidden;
 }
 
+#popup p{
+  z-index: 1;
+}
+
 #mario{
   position:absolute;
-  top:60%;
+  z-index:0;
+  top:40%;
   left:-100px;
   width:100px;
   height:100px;
@@ -159,4 +164,23 @@ audio{
   100%{
     left:calc(100% - 4px)
   }
+}
+
+#mario-falling{
+  z-index:0;
+  position:absolute;
+  background:url("../Images/small-mario-dying.jpg");
+  background-repeat: no-repeat;
+  width:50px;
+  height:50px;
+  top:-60px;
+  animation-name: falling;
+  animation-duration:1.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes falling{
+  0%{top:-60px;}
+  100%{top:100%;}
 }

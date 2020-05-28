@@ -172,18 +172,20 @@ function renderWinLoss() {
       }
     });
   });
+  let mario = document.createElement("div");
   if (remainingSq > 0) {
     setTimeout(function () {
       themeAudio.pause();
       gameOverAudio.play();
+      mario.setAttribute("id", "mario-falling");
       popup.innerHTML = "<p>YOU LOSE</p>";
+      popup.appendChild(mario);
       gameGridDOM.appendChild(popup);
     }, 2300);
   } else {
     setTimeout(function () {
       themeAudio.pause();
       stageClearAudio.play();
-      let mario = document.createElement("div");
       mario.setAttribute("id", "mario");
       popup.innerHTML = "<p>YOU WIN</p>";
       popup.appendChild(mario);
