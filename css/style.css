@@ -13,12 +13,56 @@ body{
 }
 
 header{
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   display:flex;
   padding: 10px 0;
   background:gray;
+}
+
+header #logoContainer{
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+}
+
+header #settings{
+  margin-left:10px;
   position:relative;
+}
+
+header #settings p{
+  color: rgb(255,220,201);
+  background: rgb(222, 89, 24);
+  padding:5px 2px;
+}
+
+header #settings ul{
+  visibility: hidden;
+  list-style-type: none;
+  position: absolute;
+  width:100%;
+}
+
+header #settings ul li{
+  border:1px solid black;
+  background: rgb(222, 89, 24);
+  color: rgb(255,220,201);
+  padding:8px 8px;
+  cursor:pointer;
+}
+
+header #settings ul li:hover{
+  color: black;
+}
+
+header #settings:hover > ul{
+  visibility: visible;
+}
+
+header audio{
+  margin-right:10px;
 }
 
 header img{
@@ -26,9 +70,8 @@ header img{
   width:100px;
 }
 
-audio{
-  position:absolute;
-  right:10px;
+#settings ul .selected{
+  color:black;
 }
 
 #game-status{
@@ -38,7 +81,7 @@ audio{
   justify-content: space-between;
   min-width:500px;
   width:35vw;
-  margin-top:30px;
+  margin-top:15px;
 
 }
 
@@ -58,14 +101,11 @@ audio{
   cursor:pointer;
 }
 
-
 #game-grid{
   position:relative;
   display:flex;
   flex-wrap:wrap;
   margin:0 auto;
-  width:724px;
-  height:564px;
   border: 2px solid black;
 }
 
@@ -73,8 +113,6 @@ audio{
   display:flex;
   justify-content: center;
   align-items:center;
-  height:40px;
-  width:40px;
 }
 
 .closed{

@@ -25,8 +25,18 @@
     </audio>
     <script defer src="javascript/main.js"></script>
     <header>
-      <h1>Minesweeper</h1>
-      <img src="Images/Logo.jpg" />
+      <div id="settings">
+        <p>Settings</p>
+        <ul>
+          <li id="easy">Easy</li>
+          <li id="normal" class="selected">Normal</li>
+          <li id="hard">Hard</li>
+        </ul>
+      </div>
+      <div id="logoContainer">
+        <h1>Minesweeper</h1>
+        <img src="Images/Logo.jpg" />
+      </div>
       <audio id="themeAudio" autoplay controls loop>
         <source src="Sounds/smb_overworld.mp3" type="audio/mp3" />
       </audio>

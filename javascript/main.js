@@ -8,11 +8,12 @@ var themeAudio = document.querySelector("#themeAudio");
 var gameOverAudio = document.querySelector("#gameOverAudio");
 var bombAudio = document.querySelector("#bombAudio");
 var stageClearAudio = document.querySelector("#stageClearAudio");
+var gameMenu = document.querySelector("#settings ul");
 
 const numColor = {
   1: "#0000ff",
   2: "#008000",
-  3: "#930712",
+  3: "#e80000",
   4: "#000080",
   5: "#800000",
   6: "#008080",
@@ -22,25 +23,28 @@ const numColor = {
 
 const gameDiffSet = {
   Easy: {
+    squareSize: 70,
     gridX: 10,
     gridY: 8,
     numOfMines: 10,
   },
   Normal: {
+    squareSize: 40,
     gridX: 18,
     gridY: 14,
     numOfMines: 40,
   },
   Hard: {
+    squareSize: 30,
     gridX: 24,
     gridY: 20,
     numOfMines: 99,
   },
 };
 var gameDiff = "Normal";
-var gridX = gameDiffSet[gameDiff]["gridX"];
-var gridY = gameDiffSet[gameDiff]["gridY"];
-var numOfMines = gameDiffSet[gameDiff]["numOfMines"];
+var gridX;
+var gridY;
+var numOfMines;
 var remainingSq = null;
 var timeElap = null;
 var timer;
@@ -120,6 +124,8 @@ function renderGameGrid() {
       valueRow.push(0);
       revealRow.push(0);
       let square = document.createElement("div");
+      square.style.height = gameDiffSet[gameDiff]["squareSize"] + "px";
+      square.style.width = gameDiffSet[gameDiff]["squareSize"] + "px";
       square.classList.add("square");
       square.classList.add("closed");
       square.id = y + "," + x;
@@ -256,14 +262,39 @@ function reset() {
   initialize();
 }
 
+function selectDiff(event) {
+  if (event.target.innerText == gameDiff) {
+    return;
+  } else {
+    gameDiff = event.target.innerText;
+    let ul = document.querySelectorAll("li");
+    ul.forEach(function (ele) {
+      ele.classList.remove("selected");
+    });
+    event.target.classList.add("selected");
+  }
+  if (themeAudio.muted || themeAudio.paused) {
+    soundSetting = 1;
+  } else {
+    soundSetting = 0;
+  }
+  reset();
+}
+
 //Initialize Functions
 function initialize() {
+  gridX = gameDiffSet[gameDiff]["gridX"];
+  gridY = gameDiffSet[gameDiff]["gridY"];
+  numOfMines = gameDiffSet[gameDiff]["numOfMines"];
+  gameGridDOM.style.width =
+    gridX * gameDiffSet[gameDiff]["squareSize"] + 4 + "px";
   renderGameGrid();
   renderMines();
   calcRemainSq();
   mineNumGen();
   gameGridDOM.onclick = squareClick;
   gameResetDOM.onclick = reset;
+  gameMenu.onclick = selectDiff;
 }
 
 initialize();
