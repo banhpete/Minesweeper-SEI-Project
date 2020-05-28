@@ -4,6 +4,17 @@ var gameTimerDOM = document.querySelector("#timer p");
 var gameMineDOM = document.querySelector("#num-of-mines");
 var gameResetDOM = document.querySelector("#reset");
 
+const numColor = {
+  1: "#0000ff",
+  2: "#008000",
+  3: "#930712",
+  4: "#000080",
+  5: "#800000",
+  6: "#008080",
+  7: "#000000",
+  8: "#808080",
+};
+
 const gameDiffSet = {
   Easy: {
     gridX: 10,
@@ -121,9 +132,10 @@ function rerenderSquare(square, squareX, squareY) {
   console.log(remainingSq);
   square.classList.remove("closed");
   square.classList.add("open");
-  square.innerText = gameGridValues[squareY][squareX]
-    ? gameGridValues[squareY][squareX]
-    : "";
+  if (gameGridValues[squareY][squareX]) {
+    square.innerText = gameGridValues[squareY][squareX];
+    square.style.color = numColor[gameGridValues[squareY][squareX]];
+  }
   gameGridReveal[squareY][squareX] = 1;
 }
 
