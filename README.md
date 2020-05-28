@@ -114,6 +114,7 @@ Considering the scope of the project, the design of the game will take a compute
   - Game Grid Reveal Status - 2D Array - Array of 0 or 1 values indicating reveal status
   - Remaining Squares left to unreveal - Number.
   - Time Spent - Number - Starts with 0.
+  - Game Status - Number - 0 implies ongoing, 1 implies done
 
 ### Update State Functions
 - Mine/Number Generator Function - Takes in settings and then randomizes coordinates of mines and inputs it into Game Grid Values.
