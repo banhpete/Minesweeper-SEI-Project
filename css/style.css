@@ -8,6 +8,8 @@
 
 body{
   height: 100vh;
+  background:url('../Images/background.jpg');
+  background-size: contain;
 }
 
 header{
@@ -62,7 +64,13 @@ header{
 }
 
 .closed{
-  background: darkgray;
+  background: url("../Images/QuestionBox.jpg");
+  background-size:contain;
+}
+
+.closed:hover{
+  background: url("../Images/HighlightedQuestionBox.jpg");
+  background-size:contain;
 }
 
 .mineExposed{
@@ -70,12 +78,19 @@ header{
 }
 
 .open{
-  background:rgb(235, 235, 235);
+  position:relative;
+  background: url("../Images/EmptyBox.jpg");
+  background-size:contain;
+  animation-name: opened;
+  animation-duration: .1s;
 }
 
-.square:hover{
-  cursor:pointer;
-  background:lightgreen;
+@keyframes opened {
+  0% {top:0px;}
+  25% {top: -3px;}
+  50% {top:-6px;}
+  75% {top:-3px;}
+  100% {top:0px}
 }
 
 #popup{

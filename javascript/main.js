@@ -41,7 +41,6 @@ class player {
 // Update State Function
 function floodFill(square, x, y) {
   rerenderSquare(square, x, y);
-  console.log(typeof x, typeof y);
   for (let dx = -1; dx <= 1; dx++) {
     if (x + dx >= 0 && x + dx < gridX) {
       for (let dy = -1; dy <= 1; dy++) {
@@ -56,7 +55,9 @@ function floodFill(square, x, y) {
               let checkedSquare = document.getElementById(
                 `${y + dy},${x + dx}`
               );
-              floodFill(checkedSquare, x + dx, y + dy);
+              setTimeout(function () {
+                floodFill(checkedSquare, x + dx, y + dy);
+              }, 200 * Math.random());
             }
           }
         }
@@ -113,6 +114,9 @@ function renderGameGrid() {
 }
 
 function rerenderSquare(square, squareX, squareY) {
+  if (square.classList.value.includes("open")) {
+    return;
+  }
   remainingSq--;
   console.log(remainingSq);
   square.classList.remove("closed");
