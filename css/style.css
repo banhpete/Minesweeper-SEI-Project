@@ -13,8 +13,16 @@ body{
 }
 
 header{
+  justify-content: center;
+  align-items: center;
+  display:flex;
   padding: 10px 0;
   background:gray;
+}
+
+header img{
+  margin-left:10px;
+  width:100px;
 }
 
 #game-status{
@@ -32,18 +40,18 @@ header{
   display:flex;
   justify-content: center;
   align-items:center;
-  background:black;
   color:white;
-  padding:8px 5px 8px 8px;
 }
 
-#timer{
-  border:1px solid black;
-  border-radius:100px;
-  width:55px;
-  height:55px;
-  padding:5px 4px 5px 4px;
+#reset{
+  padding:2px;
 }
+
+#reset:hover{
+  background:black;
+  cursor:pointer;
+}
+
 
 #game-grid{
   display:flex;
@@ -74,7 +82,8 @@ header{
 }
 
 .mineExposed{
-  background:red;
+  background: url("../Images/EmptyBoxExplode.jpg");
+  background-size:contain;
 }
 
 .open{
