@@ -11,10 +11,25 @@
     <link href="css/style.css" rel="stylesheet" />
   </head>
   <body>
+    <audio id="coinAudio">
+      <source src="Sounds/smb_coin.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="bombAudio">
+      <source src="Sounds/smb_fireworks.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="gameOverAudio">
+      <source src="Sounds/smb_gameover.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="stageClearAudio">
+      <source src="Sounds/smb_stage_clear.mp3" type="audio/mp3" />
+    </audio>
     <script defer src="javascript/main.js"></script>
     <header>
       <h1>Minesweeper</h1>
       <img src="Images/Logo.jpg" />
+      <audio id="themeAudio" autoplay controls loop>
+        <source src="Sounds/smb_overworld.mp3" type="audio/mp3" />
+      </audio>
     </header>
     <div id="game-status">
       <div id="num-of-mines">30 Mines</div>

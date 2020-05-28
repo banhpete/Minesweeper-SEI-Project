@@ -3,6 +3,11 @@ var gameGridDOM = document.getElementById("game-grid");
 var gameTimerDOM = document.querySelector("#timer p");
 var gameMineDOM = document.querySelector("#num-of-mines");
 var gameResetDOM = document.querySelector("#reset");
+var coinAudio = document.querySelector("#coinAudio");
+var themeAudio = document.querySelector("#themeAudio");
+var gameOverAudio = document.querySelector("#gameOverAudio");
+var bombAudio = document.querySelector("#bombAudio");
+var stageClearAudio = document.querySelector("#stageClearAudio");
 
 const numColor = {
   1: "#0000ff",
@@ -68,7 +73,7 @@ function floodFill(square, x, y) {
               );
               setTimeout(function () {
                 floodFill(checkedSquare, x + dx, y + dy);
-              }, 200 * Math.random());
+              }, 300 * Math.random());
             }
           }
         }
@@ -128,8 +133,10 @@ function rerenderSquare(square, squareX, squareY) {
   if (square.classList.value.includes("open")) {
     return;
   }
+  coinAudio.pause();
+  coinAudio.currentTime = 0;
+  coinAudio.play();
   remainingSq--;
-  console.log(remainingSq);
   square.classList.remove("closed");
   square.classList.add("open");
   if (gameGridValues[squareY][squareX]) {
@@ -143,26 +150,36 @@ function renderWinLoss() {
   let popup = document.createElement("div");
   popup.setAttribute("id", "popup");
   clearInterval(timer);
-  if (remainingSq > 0) {
-    let square;
-    gameGridValues.forEach(function (row, y) {
-      row.forEach(function (square, x) {
-        if (square == -1) {
-          setTimeout(function () {
-            square = document
-              .getElementById(`${y},${x}`)
-              .classList.add("mineExposed");
-          }, 200 + Math.random() * 500);
-        }
-      });
+  let square;
+  let mineCount = 0;
+  gameGridValues.forEach(function (row, y) {
+    row.forEach(function (square, x) {
+      if (square == -1) {
+        setTimeout(function () {
+          square = document
+            .getElementById(`${y},${x}`)
+            .classList.add("mineExposed");
+          bombAudio.pause();
+          bombAudio.currentTime = 0;
+          bombAudio.play();
+        }, (++mineCount * 1500) / numOfMines);
+      }
     });
+  });
+  if (remainingSq > 0) {
     setTimeout(function () {
+      themeAudio.pause();
+      gameOverAudio.play();
       popup.innerHTML = "<p>YOU LOSE</p>";
       gameGridDOM.appendChild(popup);
-    }, 900);
+    }, 2300);
   } else {
-    popup.innerHTML = "<p>YOU WIN</p>";
-    gameGridDOM.appendChild(popup);
+    setTimeout(function () {
+      themeAudio.pause();
+      stageClearAudio.play();
+      popup.innerHTML = "<p>YOU WIN</p>";
+      gameGridDOM.appendChild(popup);
+    }, 2300);
   }
   gameStatus = 1;
 }
@@ -208,7 +225,6 @@ function squareClick(event) {
 
 //Reset Function
 function reset() {
-  console.log("hi");
   gameGridValues = [];
   gameGridReveal = [];
   timeElap = null;
@@ -231,7 +247,6 @@ function initialize() {
   mineNumGen();
   gameGridDOM.onclick = squareClick;
   gameResetDOM.onclick = reset;
-  console.log(gameGridValues);
 }
 
 initialize();
