@@ -62,7 +62,7 @@ As per the [projects-1-requirements](https://git.generalassemb.ly/sei-toronto/se
   - Battleship
 
 ## 3. Game Chosen: Minesweeper
-The game chosen by the student Peter Banh for the completion of project 1 will be Minesweeper. Minesweeper is a puzzle video game originating in the 1960's where the objectives are the following:
+The game chosen for the completion of project 1 will be Minesweeper. Minesweeper is a puzzle video game originating in the 1960's where the objectives are the following:
  - A player must uncover all cells of a rectangular grid while using hints provided to avoid mines that are also hidden in the rectangular grid. The hints are provided in the form of a number in a cell dictating how many mines are surrounding that one particular cell (the cells that form a 3x3 square with the particular cell in the middle). 
  - Uncover all the non-mine cells as fast as possible
 
@@ -72,7 +72,9 @@ The game chosen by the student Peter Banh for the completion of project 1 will b
 
  ![Image of Minesweeper](https://assets.rockpapershotgun.com/images/2018/09/ys28fd6a6tuz.png/RPSS/resize/760x-1/format/jpg/quality/90)
 
-The browser based game as close as possible to the description above, and similiar to what is being depicted above. If time is not a constraint, the following features will also be added to the browser based game in the following order:
+The browser based game will be made as close as possible to the description above, and similiar to what is being depicted above. 
+
+If time is not a constraint, the following features will also be added to the browser based game in the following order:
 - Two player mode where the objective is reversed, and the player must find the most mines. The player will take turns uncovering the cells to look for mines. If a mine is found the player will be allowed to continue their turn, if no mine is found the player turn will end and the next player will be allowed to uncover mines.
 - Abilities in the two player mode that will allow one player to disrupt the other player's ability to find mines.
 - An AI to play against the player
@@ -167,11 +169,45 @@ Considering the scope of the project, the design of the game will take a compute
 - Run Update Time Function every second and then run render timer function.
 
 ## 6. Technologies Used
-To be added.
-## 7. Project Content
-To be added.
+In order to make the browser based game with the following requirements and pseudo code, the following technologies were used:
+- HTML
+  - User interface
+- CSS
+  - Style interface
+  - Provide responsiveness to screen size with media queries
+  - Add animation to the game
+- JavaScript
+  - Create game state
+  - Provide functionality and logic for the game to work
+  - Manipulate DOM elements
+  - Provide responsiveness to screen size.
+
+## 7. Working Version of Project: Minesweeper - Mario NES Edition
+Based on the requirements and details above, a working version of the browser based game was completed and the game was designed to have a Mario NES theme.
+
+Screenshot of the game in progress.
+![Image of the Minesweeper Game](README-Images/Screenshot.JPG)
+
+Screenshot of the losing screen
+
+As shown above, the working project deviates from the mockup slightly, having the setting button move to left and a music button to the right.
+
+This project consists of the following:
+- index.html - The main page that users will interact with
+- style.css - The style for the main page
+- main.js - The code for the minesweeper game
+- /Sounds - Folder containing the sound effects of the game
+- /Images - Folder containing the images used in the game
+
 ## 8. Getting Started
-To be added.
+To play, access the browser based game here: 
+
+https://banhpete.github.io/SEI-Project-Minesweeper/
+
+No special required to play the game. 
+
+For anyone looking to play the game locally, for the repository and open up the index.html file, no special instructions required.
+
 ## 9. Discussion on Development
 To be added.
 ## 10. Next Steps
