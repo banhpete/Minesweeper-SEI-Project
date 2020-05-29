@@ -158,12 +158,12 @@ function renderWinLoss() {
   let square;
   let mineCount = 0;
   gameGridValues.forEach(function (row, y) {
-    row.forEach(function (square, x) {
-      if (square == -1) {
+    row.forEach(function (squareValue, x) {
+      if (squareValue == -1) {
         setTimeout(function () {
-          square = document
-            .getElementById(`${y},${x}`)
-            .classList.add("mineExposed");
+          mine = document.getElementById(`${y},${x}`);
+          mine.classList.add("mineExposed");
+          mine.classList.remove("closed");
           bombAudio.pause();
           bombAudio.currentTime = 0;
           bombAudio.play();
