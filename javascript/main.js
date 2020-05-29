@@ -22,7 +22,7 @@ const numColor = {
   8: "#808080",
 };
 
-const gameDiffSet = {
+var gameDiffSet = {
   Easy: {
     squareSize: 70,
     gridX: 10,
@@ -54,12 +54,7 @@ var gameGridReveal = [];
 var gameStatus = 0;
 var soundSetting = 0;
 var explosionSet = 0;
-
-class player {
-  constructor() {
-    flagcolor = "red";
-  }
-}
+var resized = 0;
 
 // Update State Function
 function floodFill(square, x, y) {
@@ -288,14 +283,72 @@ function selectDiff(event) {
   reset();
 }
 
-function musicToggle() {
+function musicToggle(event) {
   if (themeAudio.paused) {
+    event.target.innerHTML = "Music: ON&nbsp";
     themeAudio.play();
     soundSetting = 0;
   } else {
+    event.target.innerHTML = "Music: OFF";
     themeAudio.pause();
     soundSetting = 1;
   }
+}
+
+function respond() {
+  if (window.innerWidth < 780 && !resized) {
+    gameDiffSet = {
+      Easy: {
+        squareSize: 30,
+        gridX: 10,
+        gridY: 8,
+        numOfMines: 10,
+      },
+      Normal: {
+        squareSize: 20,
+        gridX: 18,
+        gridY: 14,
+        numOfMines: 40,
+      },
+      Hard: {
+        squareSize: 15,
+        gridX: 24,
+        gridY: 20,
+        numOfMines: 99,
+      },
+    };
+    gameGridDOM.style.width =
+      gridX * gameDiffSet[gameDiff]["squareSize"] + 4 + "px";
+    let squares = document.querySelectorAll(".square");
+    squares.forEach(function (ele) {
+      ele.style.height = gameDiffSet[gameDiff]["squareSize"] + "px";
+      ele.style.width = gameDiffSet[gameDiff]["squareSize"] + "px";
+    });
+    resized = 1;
+  } else {
+    gameDiffSet = {
+      Easy: {
+        squareSize: 70,
+        gridX: 10,
+        gridY: 8,
+        numOfMines: 10,
+      },
+      Normal: {
+        squareSize: 40,
+        gridX: 18,
+        gridY: 14,
+        numOfMines: 40,
+      },
+      Hard: {
+        squareSize: 30,
+        gridX: 24,
+        gridY: 20,
+        numOfMines: 99,
+      },
+    };
+    resize = 0;
+  }
+  console.log(window.innerWidth);
 }
 
 //Initialize Functions
@@ -313,6 +366,8 @@ function initialize() {
   gameResetDOM.onclick = reset;
   gameMenuDOM.onclick = selectDiff;
   musicDOM.onclick = musicToggle;
+  window.addEventListener("resize", respond);
+  respond();
 }
 
 initialize();
