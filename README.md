@@ -7,13 +7,13 @@ To do so, the documment will cover the following:
 1. [Introdution](##1.-Introduction)
 2. [Project Requirements](##2.-Project-Requirements)
 3. [Game Chosen: Minesweeper](##3.-Game-Chosen:-Minesweeper)
-3. [Wireframe](##4.-Wireframe)
-4. [Psuedocode](##5.-Psuedocode)
-5. [Technologies Used](##6.-Technologies-Used)
-6. [Project Content](##7.-Project-Content)
-7. [Getting Started](##8.-Getting-Started)
-8. [Discussion on Development](##9.-Discussion-on-Development)
-9. [Next Steps](##10.-Next-Steps)
+4. [Wireframe](##4.-Wireframe)
+5. [Psuedocode](##5.-Psuedocode)
+6. [Technologies Used](##6.-Technologies-Used)
+7. [Project Content](##7.-Project-Content)
+8. [Getting Started](##8.-Getting-Started)
+9. [Discussion on Development](##9.-Discussion-on-Development)
+10. [Next Steps](##10.-Next-Steps)
 
 <a name="intro"></a>
 ## 1. Introduction
