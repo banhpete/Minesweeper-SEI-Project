@@ -97,11 +97,11 @@ header img{
   color:white;
 }
 
-#reset{
+.reset{
   padding:2px;
 }
 
-#reset:hover{
+.reset:hover{
   background:black;
   cursor:pointer;
 }

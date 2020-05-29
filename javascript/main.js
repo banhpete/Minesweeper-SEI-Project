@@ -2,7 +2,7 @@
 var gameGridDOM = document.getElementById("game-grid");
 var gameTimerDOM = document.querySelector("#timer p");
 var gameMineDOM = document.querySelector("#num-of-mines");
-var gameResetDOM = document.querySelector("#reset");
+var gameResetDOM = document.querySelector(".reset");
 var gameMenuDOM = document.querySelector("#settings ul");
 var musicDOM = document.querySelector("#music");
 var coinAudio = document.querySelector("#coinAudio");
@@ -184,6 +184,8 @@ function renderWinLoss() {
       setTimeout(function () {
         let resetMsg = document.createElement("p");
         resetMsg.innerHTML = "Press Reset";
+        resetMsg.onclick = reset;
+        resetMsg.classList.add("reset");
         popup.appendChild(resetMsg);
       }, 3000);
     }, 2300);
@@ -199,6 +201,8 @@ function renderWinLoss() {
       setTimeout(function () {
         let resetMsg = document.createElement("p");
         resetMsg.innerHTML = "Press Reset";
+        resetMsg.onclick = reset;
+        resetMsg.classList.add("reset");
         popup.appendChild(resetMsg);
       }, 3000);
     }, 2300);
