@@ -76,6 +76,7 @@ header img{
 
 #settings ul .selected{
   color:black;
+  background:rgb(255,220,201);
 }
 
 #game-status{
@@ -83,7 +84,7 @@ header img{
   padding: 10px;
   display:flex;
   justify-content: space-between;
-  min-width:500px;
+  min-width:600px;
   width:35vw;
   margin-top:15px;
 
@@ -251,5 +252,16 @@ footer{
 
   #settings{
     order:3;
+  }
+
+  #game-status{
+    min-width:300px;
+    margin-top:5px;
+    flex-direction:column;
+    padding:0px;
+  }
+
+  #game-status div{
+    margin:5px;
   }
 }

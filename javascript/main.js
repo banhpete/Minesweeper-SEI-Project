@@ -296,59 +296,71 @@ function musicToggle(event) {
 }
 
 function respond() {
-  if (window.innerWidth < 780 && !resized) {
-    gameDiffSet = {
-      Easy: {
-        squareSize: 30,
-        gridX: 10,
-        gridY: 8,
-        numOfMines: 10,
-      },
-      Normal: {
-        squareSize: 20,
-        gridX: 18,
-        gridY: 14,
-        numOfMines: 40,
-      },
-      Hard: {
-        squareSize: 15,
-        gridX: 24,
-        gridY: 20,
-        numOfMines: 99,
-      },
-    };
-    gameGridDOM.style.width =
-      gridX * gameDiffSet[gameDiff]["squareSize"] + 4 + "px";
-    let squares = document.querySelectorAll(".square");
-    squares.forEach(function (ele) {
-      ele.style.height = gameDiffSet[gameDiff]["squareSize"] + "px";
-      ele.style.width = gameDiffSet[gameDiff]["squareSize"] + "px";
-    });
-    resized = 1;
+  if (window.innerWidth < 780) {
+    if (gameDiffSet["Easy"]["squareSize"] > 50) {
+      gameDiffSet = {
+        Easy: {
+          squareSize: 35,
+          gridX: 10,
+          gridY: 8,
+          numOfMines: 10,
+        },
+        Normal: {
+          squareSize: 20,
+          gridX: 18,
+          gridY: 14,
+          numOfMines: 40,
+        },
+        Hard: {
+          squareSize: 15,
+          gridX: 24,
+          gridY: 20,
+          numOfMines: 99,
+        },
+      };
+      gameGridDOM.style.width =
+        gridX * gameDiffSet[gameDiff]["squareSize"] + 4 + "px";
+      let squares = document.querySelectorAll(".square");
+      squares.forEach(function (ele) {
+        ele.style.height = gameDiffSet[gameDiff]["squareSize"] + "px";
+        ele.style.width = gameDiffSet[gameDiff]["squareSize"] + "px";
+      });
+    } else {
+      return;
+    }
   } else {
-    gameDiffSet = {
-      Easy: {
-        squareSize: 70,
-        gridX: 10,
-        gridY: 8,
-        numOfMines: 10,
-      },
-      Normal: {
-        squareSize: 40,
-        gridX: 18,
-        gridY: 14,
-        numOfMines: 40,
-      },
-      Hard: {
-        squareSize: 30,
-        gridX: 24,
-        gridY: 20,
-        numOfMines: 99,
-      },
-    };
-    resize = 0;
+    if (gameDiffSet["Easy"]["squareSize"] < 50) {
+      gameDiffSet = {
+        Easy: {
+          squareSize: 70,
+          gridX: 10,
+          gridY: 8,
+          numOfMines: 10,
+        },
+        Normal: {
+          squareSize: 40,
+          gridX: 18,
+          gridY: 14,
+          numOfMines: 40,
+        },
+        Hard: {
+          squareSize: 30,
+          gridX: 24,
+          gridY: 20,
+          numOfMines: 99,
+        },
+      };
+      gameGridDOM.style.width =
+        gridX * gameDiffSet[gameDiff]["squareSize"] + 4 + "px";
+      let squares = document.querySelectorAll(".square");
+      squares.forEach(function (ele) {
+        ele.style.height = gameDiffSet[gameDiff]["squareSize"] + "px";
+        ele.style.width = gameDiffSet[gameDiff]["squareSize"] + "px";
+      });
+    } else {
+      return;
+    }
   }
-  console.log(window.innerWidth);
 }
 
 //Initialize Functions
