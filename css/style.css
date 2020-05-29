@@ -18,8 +18,8 @@ header{
   justify-content: space-between;
   align-items: center;
   display:flex;
-  padding: 10px 0;
-  background:gray;
+  padding: 3px 0;
+  background: gray;
 }
 
 header #logoContainer{
@@ -29,15 +29,20 @@ header #logoContainer{
   align-items: center;
 }
 
-header #settings{
-  margin-left:10px;
+header div{
+  margin: 5px 10px;
   position:relative;
 }
 
-header #settings p{
+header p{
   color: rgb(255,220,201);
   background: rgb(222, 89, 24);
   padding:5px 2px;
+}
+
+header #music:hover > p{
+  color:black;
+  cursor:pointer;
 }
 
 header #settings ul{
@@ -45,6 +50,7 @@ header #settings ul{
   list-style-type: none;
   position: absolute;
   width:100%;
+  z-index:3;
 }
 
 header #settings ul li{
@@ -61,10 +67,6 @@ header #settings ul li:hover{
 
 header #settings:hover > ul{
   visibility: visible;
-}
-
-header audio{
-  margin-right:10px;
 }
 
 header img{
@@ -138,6 +140,13 @@ header img{
   background-size:contain;
   animation-name: opened;
   animation-duration: .1s;
+}
+
+footer{
+  background:gray;
+  position:absolute;
+  bottom:0px;
+  padding:3px;
 }
 
 @keyframes opened {
@@ -227,9 +236,20 @@ header img{
   100%{top:100%;}
 }
 
-footer{
-  background:gray;
-  position:absolute;
-  bottom:0px;
-  padding:3px;
+@media only screen and (max-width: 780px){
+  header{
+    flex-direction: column;
+  }
+
+  header img{
+    width: 80px;
+  }
+
+  header h1{
+    font-size:20px;
+  }
+
+  #settings{
+    order:3;
+  }
 }

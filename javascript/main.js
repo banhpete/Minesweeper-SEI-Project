@@ -3,12 +3,13 @@ var gameGridDOM = document.getElementById("game-grid");
 var gameTimerDOM = document.querySelector("#timer p");
 var gameMineDOM = document.querySelector("#num-of-mines");
 var gameResetDOM = document.querySelector("#reset");
+var gameMenuDOM = document.querySelector("#settings ul");
+var musicDOM = document.querySelector("#music");
 var coinAudio = document.querySelector("#coinAudio");
 var themeAudio = document.querySelector("#themeAudio");
 var gameOverAudio = document.querySelector("#gameOverAudio");
 var bombAudio = document.querySelector("#bombAudio");
 var stageClearAudio = document.querySelector("#stageClearAudio");
-var gameMenu = document.querySelector("#settings ul");
 
 const numColor = {
   1: "#0000ff",
@@ -158,11 +159,6 @@ function renderWinLoss() {
   explosionSet = 1;
   let popup = document.createElement("div");
   popup.setAttribute("id", "popup");
-  if (themeAudio.muted || themeAudio.paused) {
-    soundSetting = 1;
-  } else {
-    soundSetting = 0;
-  }
   clearInterval(timer);
   let square;
   let mineCount = 0;
@@ -271,7 +267,7 @@ function reset() {
     gameOverAudio.currentTime = 0;
     stageClearAudio.pause();
     stageClearAudio.currentTime = 0;
-    if (!themeAudio.muted && !soundSetting) {
+    if (!soundSetting) {
       themeAudio.play();
     }
     initialize();
@@ -289,12 +285,17 @@ function selectDiff(event) {
     });
     event.target.classList.add("selected");
   }
-  if (themeAudio.muted || themeAudio.paused) {
-    soundSetting = 1;
-  } else {
-    soundSetting = 0;
-  }
   reset();
+}
+
+function musicToggle() {
+  if (themeAudio.paused) {
+    themeAudio.play();
+    soundSetting = 0;
+  } else {
+    themeAudio.pause();
+    soundSetting = 1;
+  }
 }
 
 //Initialize Functions
@@ -310,7 +311,8 @@ function initialize() {
   mineNumGen();
   gameGridDOM.onclick = squareClick;
   gameResetDOM.onclick = reset;
-  gameMenu.onclick = selectDiff;
+  gameMenuDOM.onclick = selectDiff;
+  musicDOM.onclick = musicToggle;
 }
 
 initialize();
