@@ -1,4 +1,5 @@
 /* -------- Initialize State and Constants -------- */
+// DOM Nodes
 var gameGridDOM = document.getElementById("game-grid");
 var gameTimerDOM = document.querySelector("#timer p");
 var gameMineDOM = document.querySelector("#num-of-mines");
@@ -6,6 +7,7 @@ var gameResetDOM = document.querySelector(".reset");
 var gameMenuDOM = document.querySelector("#settings ul");
 var musicDOM = document.querySelector("#music");
 
+// DOM Audio Nodes
 var coinAudio = document.querySelector("#coinAudio");
 var themeAudio = document.querySelector("#themeAudio");
 var gameOverAudio = document.querySelector("#gameOverAudio");
