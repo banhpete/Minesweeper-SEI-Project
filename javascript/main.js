@@ -14,6 +14,7 @@ var gameOverAudio = document.querySelector("#gameOverAudio");
 var bombAudio = document.querySelector("#bombAudio");
 var stageClearAudio = document.querySelector("#stageClearAudio");
 
+// Obj for Font Colour in Grid
 const numColor = {
   1: "#0000ff",
   2: "#008000",
@@ -25,6 +26,7 @@ const numColor = {
   8: "#808080",
 };
 
+// Obj for Game Setting
 var gameDiffSet = {
   Easy: {
     squareSize: 70,
@@ -46,21 +48,23 @@ var gameDiffSet = {
   },
 };
 
+// Game State Variables
 var gameDiff = "Normal";
-var gridX;
-var gridY;
+var gridX; // Width of Grid in Squares
+var gridY; // Height of Grid in Squares
 var numOfMines;
-var remainingSq = null;
-var timeElap = null;
-var timer;
-var gameGridValues = [];
-var gameGridReveal = [];
-var gameStatus = 0;
-var soundSetting = 0;
-var explosionSet = 0;
+var remainingSq = null; // Remaining Squares a player has to uncover before they win
+var timeElap = null; // Time elapsed
+var timer; // Variable used to hold the setInterval function so that we can stop it
+var gameGridValues = []; // State of the grid telling us where mines are and numbers surrounding it
+var gameGridReveal = []; // Grid used to keep track of what cells have been revealed already
+var soundSetting = 0; // Used to keep track if the sounds are playing or not.
+var explosionSet = 0; // Used to keep of the explosion sequence and to prevent players from skipping it. This is so they can witness the magnificient explosions.
+// But also so that they do not reset the game too early, which could affect the state of the grid since we have have a bunch of setTimeOut() functions
 
 /* -------- Utility Functions -------- */
-
+// This function is used throughout the code to check the surrounding
+// cells of a particular cell with coordinates y,x.
 function checkSurroundings(y, x, fn) {
   for (let dx = -1; dx <= 1; dx++) {
     if (x + dx >= 0 && x + dx < gridX) {
@@ -74,6 +78,7 @@ function checkSurroundings(y, x, fn) {
 }
 
 /* -------- Update State Functions -------- */
+// Flood Fill Function that allows for the reveal propagation through the grid.
 function floodFill(square, x, y) {
   rerenderSquare(square, x, y);
 
@@ -92,10 +97,16 @@ function floodFill(square, x, y) {
   });
 }
 
+// Generation of the 2D array that defines mine locations and numbers
 function mineNumGen(totalMines = numOfMines, y = 99, x = 99) {
   for (let minesAdded = 0; minesAdded < totalMines; minesAdded++) {
     randX = Math.floor(Math.random() * gridX);
     randY = Math.floor(Math.random() * gridY);
+
+    // This while loop is to ensure mines are not placed in the same place of another mine
+    // And to ensure a mine is not relocated near the area where the player first clicks.
+    // The conditions containing absolutes are only important for the relocation of mines, not the
+    // initial generation of the mines.
     while (
       gameGridValues[randY][randX] == -1 ||
       Math.abs(randY - y) <= 1 ||
@@ -104,23 +115,30 @@ function mineNumGen(totalMines = numOfMines, y = 99, x = 99) {
       randX = Math.floor(Math.random() * gridX);
       randY = Math.floor(Math.random() * gridY);
     }
-    if (totalMines == 1) {
-    }
+
+    // Add the value 1 to the surrounding area of the mine
     gameGridValues[randY][randX] = -1;
     checkSurroundings(randY, randX, function (y, x) {
       if (gameGridValues[y][x] != -1) {
         gameGridValues[y][x]++;
       }
     });
+
+    // Update game gameGridReveal
     gameGridReveal[randY][randX] = 1;
   }
 }
 
+// This function is a simple function to calculate the remaining squares a user has left to uncover.
+// Helps determine if a user has won or not.
 function calcRemainSq() {
   remainingSq = gridX * gridY - numOfMines;
 }
 
 /* -------- Render Functions -------- */
+// Function to dynamically create the squares and add them to DOM. It also serves to create the 2D array.
+// While the render function and state defining functions should be separated, it was benefacial to combine these two
+// since it was looping through the same thing.
 function renderGameGrid() {
   for (y = 0; y < gridY; y++) {
     let valueRow = [];
@@ -136,21 +154,26 @@ function renderGameGrid() {
       square.id = y + "," + x;
       gameGridDOM.appendChild(square);
     }
-
     gameGridValues.push(valueRow);
     gameGridReveal.push(revealRow);
   }
 }
 
+// Re-render a square after it is clicked
 function rerenderSquare(square, squareX, squareY) {
   if (square.classList.value.includes("open")) {
     return;
   }
 
+  // Because we can have multiple squares rerendering, it's important to have the pause and reset time to 0
+  // Otherwise, the sound effect would be very lame for multiple squares.
   coinAudio.pause();
   coinAudio.currentTime = 0;
   coinAudio.play();
+
   remainingSq--;
+
+  // Add style to font and the square
   square.classList.remove("closed");
   square.classList.add("open");
   if (gameGridValues[squareY][squareX]) {
@@ -161,16 +184,20 @@ function rerenderSquare(square, squareX, squareY) {
 }
 
 function renderWinLoss() {
+  // Stop the setInterval
   clearInterval(timer);
 
+  // Stop the user from interacting with the grid and the reset button temporarily
   explosionSet = 1;
   gameStatus = 1;
   let mineCount = 0;
 
+  // Creates new DOM nodes
   let mario = document.createElement("div");
   let popup = document.createElement("div");
   popup.setAttribute("id", "popup");
 
+  // Sets off the explosions throughout the grid. The setTimeout here gives the explosion the wavy effect.
   gameGridValues.forEach(function (row, y) {
     row.forEach(function (squareValue, x) {
       if (squareValue == -1) {
@@ -186,6 +213,7 @@ function renderWinLoss() {
     });
   });
 
+  // Show the win/loss message. The setTimeout here allows the message to appear shortly after the explosions
   if (remainingSq > 0) {
     setTimeout(function () {
       themeAudio.pause();
@@ -201,7 +229,7 @@ function renderWinLoss() {
         resetMsg.onclick = reset;
         resetMsg.classList.add("reset");
         popup.appendChild(resetMsg);
-      }, 3000);
+      }, 35000);
     }, 2300);
   } else {
     setTimeout(function () {
@@ -223,15 +251,18 @@ function renderWinLoss() {
   }
 }
 
+// For rendering the timer
 function renderTimer() {
   gameTimerDOM.innerText = ++timeElap;
 }
 
+// For rendering the DOM indicating number of mines
 function renderMines() {
   gameMineDOM.innerText = numOfMines + " Mines";
 }
 
 /* -------- Event Handler Functions -------- */
+// For clicking a square
 function squareClick(event) {
   // Set event target as square
   let square = event.target;
@@ -268,6 +299,7 @@ function squareClick(event) {
     });
   }
 
+  // Check what was clicked and action depending on the value
   if (gameGridValues[squareY][squareX] == -1) {
     gameStatus = 1;
     renderWinLoss();
@@ -279,11 +311,14 @@ function squareClick(event) {
     }
   }
 
+  // After checking the value, check if there are any remaining squares left to uncover
   if (!remainingSq) {
     renderWinLoss();
   }
 }
 
+// Reset the game by reseting the States, and deleting the DOM Node holding the squares
+// After run initalization again
 function reset() {
   if (!explosionSet) {
     gameGridValues = [];
@@ -308,6 +343,7 @@ function reset() {
   }
 }
 
+// For selecting difficulties
 function selectDiff(event) {
   if (event.target.innerText == gameDiff) {
     return;
@@ -322,6 +358,7 @@ function selectDiff(event) {
   reset();
 }
 
+// For toggle music on and off. Also keeps track if the music is playing or not.
 function musicToggle(event) {
   if (themeAudio.paused) {
     event.target.innerHTML = "Music: ON&nbsp";
@@ -334,6 +371,7 @@ function musicToggle(event) {
   }
 }
 
+// For mobile responsivness. Change the squareSize in the gameDiffSetting depending on screen width.
 function respond() {
   if (window.innerWidth < 780) {
     if (gameDiffSet["Easy"]["squareSize"] > 50) {
