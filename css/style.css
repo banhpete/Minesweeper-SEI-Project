@@ -264,4 +264,8 @@ footer{
   #game-status div{
     margin:5px;
   }
+
+  .square{
+    font-size:10px;
+  }
 }
