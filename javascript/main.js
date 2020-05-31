@@ -58,6 +58,7 @@ var timeElap = null; // Time elapsed
 var timer; // Variable used to hold the setInterval function so that we can stop it
 var gameGridValues = []; // State of the grid telling us where mines are and numbers surrounding it
 var gameGridReveal = []; // Grid used to keep track of what cells have been revealed already
+var gameStatus = 0; // Keeps track on whether the game shall continue or not
 var soundSetting = 0; // Used to keep track if the sounds are playing or not.
 var explosionSet = 0; // Used to keep of the explosion sequence and to prevent players from skipping it. This is so they can witness the magnificient explosions.
 // But also so that they do not reset the game too early, which could affect the state of the grid since we have have a bunch of setTimeOut() functions
