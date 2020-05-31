@@ -230,7 +230,7 @@ function renderWinLoss() {
         resetMsg.onclick = reset;
         resetMsg.classList.add("reset");
         popup.appendChild(resetMsg);
-      }, 35000);
+      }, 3500);
     }, 2300);
   } else {
     setTimeout(function () {
