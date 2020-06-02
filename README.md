@@ -28,7 +28,7 @@ The following are the next steps in developing the Minesweeper Mario NES Edition
 ## Development Process
 To provide insight of how the browser based game was developed, the following section is dedicated to the development process. It will cover the following:
 
-1. [Project Requirements](###1.-Project-Requirements)
+1. [Project Requirements](#1.-Project-Requirements)
 2. [Wireframe](###2.-Wireframe)
 3. [Psuedocode](###3.-Pseudocode)
 4. [Difficulties Faced](##4.-Difficulties-Faced)
