@@ -30,7 +30,7 @@ To provide insight of how the browser based game was developed, the following se
 
 1. [Project Requirements](#1.-project-requirements)
 2. [Wireframe](###2.-Wireframe)
-3. [Psuedocode](###3.-Pseudocode)
+3. [Psuedocode](#3.-pseudocode)
 4. [Difficulties Faced](##4.-Difficulties-Faced)
 7. [Content of the Working Version](###5.-Contents-of-the-Working-Version)
 
