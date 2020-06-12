@@ -1,4 +1,4 @@
-# General Assembly - SEI - Project 1 - Minesweeper Mario NES Edition
+# Minesweeper - Mario NES Edition - General Assembly - SEI - Project 1 - 
 
 Minesweeper Mario NES Edition is a browser based version of the famous Minesweeper game with a Super Mario Bros. NES theme. This browser based game was created for General Assembly's Software Engineering Immersive (SEI) Program.
 
