@@ -10,7 +10,7 @@ The Minesweeper Mario NES Edition uses HTML, CSS and JavaScript.
 ## Getting Started
 To play, access the browser based game here: 
 
-https://banhpete.github.io/SEI-Project-Minesweeper/
+https://banhpete.github.io/Minesweeper-SEI-Project/
 
 Uncover all the cells of the grid that do not contain mines. A number in a cell uncovered in the grid indicate how many mines are around that particular cell in a 1 cell radius (the 3x3 box around the cell), use these numbers to determine where the mines are.
 
