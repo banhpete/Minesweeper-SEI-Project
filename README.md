@@ -1,4 +1,4 @@
-# General Assembly - SEI - Project 1 - Minesweeper Mario NES Edition
+# Minesweeper - Mario NES Edition - General Assembly - SEI - Project 1 - 
 
 Minesweeper Mario NES Edition is a browser based version of the famous Minesweeper game with a Super Mario Bros. NES theme. This browser based game was created for General Assembly's Software Engineering Immersive (SEI) Program.
 
@@ -10,7 +10,7 @@ The Minesweeper Mario NES Edition uses HTML, CSS and JavaScript.
 ## Getting Started
 To play, access the browser based game here: 
 
-https://banhpete.github.io/SEI-Project-Minesweeper/
+https://banhpete.github.io/Minesweeper-SEI-Project/
 
 Uncover all the cells of the grid that do not contain mines. A number in a cell uncovered in the grid indicate how many mines are around that particular cell in a 1 cell radius (the 3x3 box around the cell), use these numbers to determine where the mines are.
 
@@ -28,11 +28,11 @@ The following are the next steps in developing the Minesweeper Mario NES Edition
 ## Development Process
 To provide insight of how the browser based game was developed, the following section is dedicated to the development process. It will cover the following:
 
-1. [Project Requirements](###1.-Project-Requirements)
-2. [Wireframe](###2.-Wireframe)
-3. [Psuedocode](###3.-Pseudocode)
-4. [Difficulties Faced](##4.-Difficulties-Faced)
-7. [Content of the Working Version](###5.-Contents-of-the-Working-Version)
+1. [Project Requirements](#1-project-requirements)
+2. [Wireframe](2-wireframe)
+3. [Psuedocode](#3-pseudocode)
+4. [Difficulties Faced](#4-difficulties-faced)
+7. [Content of the Working Version](#5-contents-of-the-working-version)
 
 ### 1. Project Requirements
 
